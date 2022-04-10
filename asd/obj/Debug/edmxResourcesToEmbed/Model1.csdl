@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="zxcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Materials">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="НаименованиеМатериала" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IDТипМатериала" Type="Int32" Nullable="false" />
+    <Property Name="КоличествоВУпаковке" Type="Int32" Nullable="false" />
+    <Property Name="IDЕдиницаИзмерения" Type="Int32" Nullable="false" />
+    <Property Name="КоличествоНаСкладе" Type="Int32" Nullable="false" />
+    <Property Name="МинимальныйВозможныйОстаток" Type="Int32" Nullable="false" />
+    <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="TypesMaterial" Relationship="Self.FK_Materials_TypesMaterial" FromRole="Materials" ToRole="TypesMaterial" />
+    <NavigationProperty Name="Units" Relationship="Self.FK_Materials_Units" FromRole="Materials" ToRole="Units" />
+    <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Materials" FromRole="Materials" ToRole="ProductMaterial" />
+  </EntityType>
+  <EntityType Name="PriceProductsChanges">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Операция" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Продукт" Type="Int64" Nullable="false" />
+    <Property Name="СтараяСтоимость" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="НоваяСтоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductMaterial">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="НеобходимоеКоличествоМатериала" Type="Int32" Nullable="false" />
+    <Property Name="IDПродукция" Type="Int32" Nullable="false" />
+    <Property Name="IDМатериал" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Materials" Relationship="Self.FK_ProductMaterial_Materials" FromRole="ProductMaterial" ToRole="Materials" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_ProductMaterial_Products" FromRole="ProductMaterial" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="НаименованиеПродукции" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Артикул" Type="Int64" Nullable="false" />
+    <Property Name="МинимальнаяСтоимостьДляАгента" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Изображение" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IDТипПродукции" Type="Int32" Nullable="false" />
+    <Property Name="КоличествоЧеловекДляПроизводства" Type="Int32" Nullable="false" />
+    <Property Name="НомерЦехаДляПроизводства" Type="Int32" Nullable="false" />
+    <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Products" FromRole="Products" ToRole="ProductMaterial" />
+    <NavigationProperty Name="TypesProducts" Relationship="Self.FK_Products_TypesProducts" FromRole="Products" ToRole="TypesProducts" />
+    <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Products" FromRole="Products" ToRole="ProductSale" />
+  </EntityType>
+  <EntityType Name="ProductSale">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDПродукции" Type="Int32" Nullable="false" />
+    <Property Name="Агент" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ДатаРеализации" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_ProductSale_Products" FromRole="ProductSale" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypesMaterial">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ТипМатериала" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_TypesMaterial" FromRole="TypesMaterial" ToRole="Materials" />
+  </EntityType>
+  <EntityType Name="TypesProducts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ТипПродукции" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_TypesProducts" FromRole="TypesProducts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Units">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ЕдиницаИзмерения" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Materials" Relationship="Self.FK_Materials_Units" FromRole="Units" ToRole="Materials" />
+  </EntityType>
+  <Association Name="FK_Materials_TypesMaterial">
+    <End Role="TypesMaterial" Type="Self.TypesMaterial" Multiplicity="1" />
+    <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesMaterial">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Materials">
+        <PropertyRef Name="IDТипМатериала" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Materials_Units">
+    <End Role="Units" Type="Self.Units" Multiplicity="1" />
+    <End Role="Materials" Type="Self.Materials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Units">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Materials">
+        <PropertyRef Name="IDЕдиницаИзмерения" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductMaterial_Materials">
+    <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+    <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materials">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductMaterial">
+        <PropertyRef Name="IDМатериал" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductMaterial_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductMaterial">
+        <PropertyRef Name="IDПродукция" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_TypesProducts">
+    <End Role="TypesProducts" Type="Self.TypesProducts" Multiplicity="1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesProducts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="IDТипПродукции" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductSale_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProductSale">
+        <PropertyRef Name="IDПродукции" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="zxcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Materials" EntityType="Self.Materials" />
+    <EntitySet Name="PriceProductsChanges" EntityType="Self.PriceProductsChanges" />
+    <EntitySet Name="ProductMaterial" EntityType="Self.ProductMaterial" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="ProductSale" EntityType="Self.ProductSale" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TypesMaterial" EntityType="Self.TypesMaterial" />
+    <EntitySet Name="TypesProducts" EntityType="Self.TypesProducts" />
+    <EntitySet Name="Units" EntityType="Self.Units" />
+    <AssociationSet Name="FK_Materials_TypesMaterial" Association="Self.FK_Materials_TypesMaterial">
+      <End Role="TypesMaterial" EntitySet="TypesMaterial" />
+      <End Role="Materials" EntitySet="Materials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Materials_Units" Association="Self.FK_Materials_Units">
+      <End Role="Units" EntitySet="Units" />
+      <End Role="Materials" EntitySet="Materials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductMaterial_Materials" Association="Self.FK_ProductMaterial_Materials">
+      <End Role="Materials" EntitySet="Materials" />
+      <End Role="ProductMaterial" EntitySet="ProductMaterial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductMaterial_Products" Association="Self.FK_ProductMaterial_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductMaterial" EntitySet="ProductMaterial" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_TypesProducts" Association="Self.FK_Products_TypesProducts">
+      <End Role="TypesProducts" EntitySet="TypesProducts" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductSale_Products" Association="Self.FK_ProductSale_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="ProductSale" EntitySet="ProductSale" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(zxcModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(zxcModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,32 @@
+﻿<Window x:Class="asd.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:asd"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid x:Name="g">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Наименование"></TextBlock>
+        <TextBox Grid.Column="1" Text="{Binding НаименованиеПродукции}"></TextBox>
+
+        <TextBlock Grid.Row="1" Text="Артикул"></TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Артикул}"></TextBox>
+
+        <TextBlock Grid.Row="2" Text="айди"></TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ID}" IsReadOnly="True"></TextBox>
+
+        <Button Click="Save_Click" Grid.Row="3" Grid.Column="1" Margin="10">Сохранить</Button>
+        <Button Click="Cancel_Click" Grid.Row="3" Grid.Column="0" Margin="10">Отмена</Button>
+    </Grid>
+</Window>
